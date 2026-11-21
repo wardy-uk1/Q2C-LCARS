@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="Arial, Helvetica, sans-serif">
+  <rect width="760" height="400" fill="#000"/>
+  <text x="380" y="34" text-anchor="middle" fill="#FF9900" font-size="22" font-weight="bold">Q2C-LCARS SOUND WIRING</text>
+  <!-- Printer -->
+  <rect x="20" y="150" width="140" height="90" rx="12" fill="#9999FF"/>
+  <text x="90" y="185" text-anchor="middle" font-size="15" font-weight="bold">QIDI Q2C</text>
+  <text x="90" y="205" text-anchor="middle" font-size="12">top board</text>
+  <text x="90" y="222" text-anchor="middle" font-size="12">USB-C socket</text>
+  <!-- USB cable -->
+  <line x1="160" y1="195" x2="250" y2="195" stroke="#FFCC99" stroke-width="6"/>
+  <text x="205" y="168" text-anchor="middle" fill="#FFCC99" font-size="11">USB-C to</text><text x="205" y="182" text-anchor="middle" fill="#FFCC99" font-size="11">micro-USB</text>
+  <!-- Pico -->
+  <rect x="250" y="90" width="170" height="250" rx="8" fill="#2E7D32"/>
+  <text x="335" y="118" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">Raspberry Pi</text>
+  <text x="335" y="138" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">Pico / Pico 2</text>
+  <g font-size="13" fill="#fff">
+    <text x="410" y="178" text-anchor="end">VBUS (pin 40)</text>
+    <text x="410" y="213" text-anchor="end">GND (pin 23)</text>
+    <text x="410" y="248" text-anchor="end">GP18 (pin 24)</text>
+    <text x="410" y="283" text-anchor="end">GP19 (pin 25)</text>
+    <text x="410" y="318" text-anchor="end">GP20 (pin 26)</text>
+  </g>
+  <!-- Amp -->
+  <rect x="540" y="150" width="150" height="205" rx="8" fill="#1E88E5"/>
+  <text x="615" y="346" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">MAX98357A</text>
+  <g font-size="13" fill="#fff">
+    <text x="550" y="178">Vin</text><text x="550" y="213">GND</text>
+    <text x="550" y="248">BCLK</text><text x="550" y="283">LRC</text><text x="550" y="318">DIN</text>
+    <text x="680" y="178" text-anchor="end">GAIN: –</text><text x="680" y="213" text-anchor="end">SD: –</text>
+  </g>
+  <g stroke-width="4">
+    <line x1="420" y1="174" x2="540" y2="174" stroke="#FF5555"/>
+    <line x1="420" y1="209" x2="540" y2="209" stroke="#888"/>
+    <line x1="420" y1="244" x2="540" y2="244" stroke="#FFCC66"/>
+    <line x1="420" y1="279" x2="540" y2="279" stroke="#CC99CC"/>
+    <line x1="420" y1="314" x2="540" y2="314" stroke="#99CCFF"/>
+  </g>
+  <!-- Speaker -->
+  <rect x="610" y="50" width="120" height="60" rx="10" fill="#FF9966"/>
+  <text x="670" y="78" text-anchor="middle" font-size="13" font-weight="bold">Speaker</text>
+  <text x="670" y="96" text-anchor="middle" font-size="11">4Ω 3W (3525)</text>
+  <line x1="650" y1="110" x2="650" y2="150" stroke="#FF5555" stroke-width="3"/>
+    <line x1="690" y1="110" x2="690" y2="150" stroke="#888" stroke-width="3" stroke-dasharray="4 3"/>
+  <text x="640" y="135" text-anchor="end" fill="#FF5555" font-size="12">+</text>
+  <text x="700" y="135" fill="#ccc" font-size="12">–</text>
+  <text x="380" y="388" text-anchor="middle" fill="#FFCC99" font-size="12">Leave GAIN and SD unconnected. Speaker wires go into the amp's screw terminal (+ and –).</text>
+</svg>

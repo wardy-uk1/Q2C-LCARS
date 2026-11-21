@@ -1,0 +1,95 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# Q2C-LCARS: build the 64-bit Pi-class package that HelixScreen installs on
+# QIDI Q2/Q2C, and publish it as a GitHub release on this fork.
+# A cold build takes roughly 1.5-2 hours.
+name: LCARS build (QIDI Q2C / Pi aarch64)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [lcars-skin]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'pico/**'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lcars-pi-build
+  cancel-in-progress: true
+
+jobs:
+  build-pi:
+    name: Build Pi aarch64 package
+    runs-on: ubuntu-22.04
+    timeout-minutes: 240
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          submodules: false
+
+      - name: Initialize submodules
+        uses: ./.github/actions/init-submodules
+
+      - name: Free up disk space
+        run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL
+          df -h /
+
+      - name: Add swap for the link peak
+        run: |
+          sudo fallocate -l 16G /swapfile-helix || sudo dd if=/dev/zero of=/swapfile-helix bs=1M count=16384
+          sudo chmod 600 /swapfile-helix
+          sudo mkswap /swapfile-helix
+          sudo swapon /swapfile-helix
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Build Pi toolchain image
+        uses: nick-fields/retry@v4
+        with:
+          timeout_minutes: 45
+          max_attempts: 3
+          retry_wait_seconds: 180
+          command: |
+            docker buildx build \
+              --cache-from type=gha,scope=toolchain-pi \
+              --cache-to type=gha,mode=max,scope=toolchain-pi \
+              --load -t helixscreen/toolchain-pi -f docker/Dockerfile.pi docker/
+
+      - name: Cross-compile (DRM + framebuffer variants)
+        run: |
+          docker run --rm -v "${{ github.workspace }}":/src -w /src \
+            helixscreen/toolchain-pi \
+            make PLATFORM_TARGET=pi-both HELIX_PACKAGING=1 SKIP_OPTIONAL_DEPS=1 -j$(nproc)
+
+      - name: Fix build directory ownership
+        run: sudo chown -R $(id -u):$(id -g) build/
+
+      - name: Generate pre-rendered images
+        run: make venv-setup && make gen-all-images
+
+      - name: Package
+        run: make release-pi
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: helixscreen-pi-lcars
+          path: releases/helixscreen-pi.zip
+          retention-days: 30
+
+      - name: Publish release on this fork
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="lcars-$(date -u +%Y%m%d)-${GITHUB_SHA::7}"
+          gh release create "$TAG" releases/helixscreen-pi.zip \
+            --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease \
+            --title "Q2C-LCARS build $TAG" \
+            --notes "LCARS skin build for the QIDI Q2C. Install guide: docs/lcars/INSTALL-Q2C.md"

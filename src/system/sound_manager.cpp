@@ -11,6 +11,7 @@
 #include "m300_sound_backend.h"
 #include "pwm_sound_backend.h"
 #include "runtime_config.h"
+#include "serial_tone_sound_backend.h"
 #include "sound_backend.h"
 #include "sound_sequencer.h"
 #include "sound_theme.h"
@@ -430,6 +431,24 @@ std::shared_ptr<SoundBackend> SoundManager::create_backend() {
         spdlog::info("[SoundManager] Using PWM sysfs backend ({}) for the named buzzer",
                      pwm->channel_path());
         return pwm;
+    }
+#endif
+
+#if defined(__linux__) && !defined(HELIX_PLATFORM_ESP32)
+    // A USB serial tone generator (Pico running the Q2C-LCARS sound firmware),
+    // found by its USB product name. Ahead of SDL/ALSA: when one is plugged in,
+    // it is the speaker the user fitted on purpose.
+    {
+        const std::string port =
+            SerialToneSoundBackend::find_device(std::getenv(SerialToneSoundBackend::kPathEnv));
+        if (!port.empty()) {
+            auto serial_backend = std::make_shared<SerialToneSoundBackend>();
+            if (serial_backend->initialize(port)) {
+                spdlog::info("[SoundManager] Using serial tone backend ({})", port);
+                return serial_backend;
+            }
+            spdlog::warn("[SoundManager] Serial tone device '{}' found but not usable", port);
+        }
     }
 #endif
 

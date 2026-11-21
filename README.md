@@ -12,7 +12,22 @@ Turn it on in **Settings › Appearance › LCARS System**:
 | 24th Century | Classic TNG/Voyager: bold elbows, colour-block sidebar | Bright triangle-wave chirps |
 | 25th Century | Picard era: thin trim, navy panels, amber accents | Soft sine tones |
 
-Status: Home and Print Status are skinned at 480×272. More screens, and speaker support for the full chirps, are on the way.
+- **Install on the printer:** [docs/lcars/INSTALL-Q2C.md](docs/lcars/INSTALL-Q2C.md)
+- **Add a speaker:** [pico/README.md](pico/README.md). A Raspberry Pi Pico on the USB-C socket drives a MAX98357A amp, because the Q2C has no sound card.
+
+### Sound board parts
+
+| Part | Where | Approx. |
+|---|---|---|
+| Raspberry Pi Pico 2 + header pins | [The Pi Hut](https://thepihut.com/collections/pico/products/raspberry-pi-pico-2) | £5.80 |
+| USB-C to micro-USB cable, 50cm | [The Pi Hut](https://thepihut.com/products/usb-c-to-micro-usb-cable-black) | £2.50 |
+| MAX98357A I²S 3W amplifier | AliExpress ("MAX98357A I2S") | £1–2 |
+| 4Ω 3W speaker, 3525 size | [AliExpress](https://www.aliexpress.com/item/1005004782990430.html) | £1–2 |
+| 5 female-to-female jumper wires | Any | – |
+
+![Sound board wiring](docs/lcars/wiring.png)
+
+Status: Home and Print Status are skinned at 480×272. More screens are on the way.
 LCARS is a fan-made style tribute; this project is not affiliated with or endorsed by CBS/Paramount.
 
 ---
