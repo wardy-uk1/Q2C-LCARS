@@ -9,8 +9,10 @@ replaces QIDI's own screen program.
   QIDI cloud app and Box filament edits from QIDI's apps stop working. You can still print
   from Fluidd, Mainsail or any slicer that talks to Moonraker. Uninstalling brings them back.
 - **QIDI firmware updates** put the stock screen back. Reinstall afterwards.
-- **Don't use Settings › Updates.** It would replace Q2C-LCARS with stock HelixScreen.
-  Install new LCARS builds as below instead.
+- **In-app updates are off.** A stock HelixScreen update would replace the LCARS build, so
+  Settings › Updates just shows "From Q2C-LCARS on GitHub". Install new LCARS builds as below.
+  To turn in-app updates back on, add `HELIX_DISABLE_AUTO_UPDATES=0` to
+  `~/helixscreen/config/helixscreen.env` and restart.
 
 ## 1. Get a build
 

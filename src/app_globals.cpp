@@ -561,8 +561,14 @@ std::string app_get_config_dir() {
 }
 
 bool updates_externally_managed() {
+    // Q2C-LCARS: a stock HelixScreen update would replace the LCARS build, so
+    // in-app updates are off on every platform. New builds come from the fork's
+    // GitHub releases. HELIX_DISABLE_AUTO_UPDATES=0 in helixscreen.env turns
+    // them back on.
+    constexpr bool kForkOwnsUpdates = true;
     static const bool cached = compute_updates_externally_managed(
-        std::getenv("HELIX_DISABLE_AUTO_UPDATES"), helix::platform_defaults_to_external_updates());
+        std::getenv("HELIX_DISABLE_AUTO_UPDATES"),
+        kForkOwnsUpdates || helix::platform_defaults_to_external_updates());
     return cached;
 }
 
