@@ -1,0 +1,27 @@
+{
+  "name": "LCARS 24th Century",
+  "dark": {
+    "screen_bg": "#000000",
+    "overlay_bg": "#0A0806",
+    "card_bg": "#000000",
+    "elevated_bg": "#2A2118",
+    "border": "#FF9900",
+    "text": "#FFCC99",
+    "text_muted": "#FF9966",
+    "text_subtle": "#9999FF",
+    "primary": "#FF9900",
+    "secondary": "#CC99CC",
+    "tertiary": "#9999FF",
+    "info": "#99CCFF",
+    "success": "#99CC99",
+    "warning": "#FFCC66",
+    "danger": "#FF5555",
+    "focus": "#FFCC66"
+  },
+  "border_radius_size": 7,
+  "border_width": 2,
+  "border_opacity": 100,
+  "shadow_intensity": 0,
+  "shadow_opa": 0,
+  "shadow_offset_y": 0
+}

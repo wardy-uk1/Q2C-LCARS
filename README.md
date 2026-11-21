@@ -1,3 +1,22 @@
+# Q2C-LCARS
+
+**LCARS-style touchscreen for the QIDI Q2C: 24th and 25th Century skins, with chirps coming soon. A HelixScreen fork.**
+
+![24th Century (top) and 25th Century (bottom), Home and Print Status at 480×272](docs/lcars/lcars-styles.png)
+
+Turn it on in **Settings › Appearance › LCARS System**:
+
+| Option | Look | Sounds |
+|---|---|---|
+| Off | Stock HelixScreen | Your chosen sound theme |
+| 24th Century | Classic TNG/Voyager: bold elbows, colour-block sidebar | Bright triangle-wave chirps |
+| 25th Century | Picard era: thin trim, navy panels, amber accents | Soft sine tones |
+
+Status: Home and Print Status are skinned at 480×272. More screens, and speaker support for the full chirps, are on the way.
+LCARS is a fan-made style tribute; this project is not affiliated with or endorsed by CBS/Paramount.
+
+---
+
 <p align="center">
   <img src="assets/images/helix-icon-256.png" alt="HelixScreen" width="128"/>
   <br>

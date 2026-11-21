@@ -81,6 +81,39 @@
            text_opa="0" transform_scale_x="205" transform_scale_y="205" transform_pivot_x="50%" transform_pivot_y="50%"
            transition="text_opa|transform_scale_x|transform_scale_y 180ms ease_out"/>
     <style name="nav_icon_fade_on" text_opa="255" transform_scale_x="256" transform_scale_y="256"/>
+
+    <!-- ============================================================== -->
+    <!-- LCARS System skin (settings_lcars_system: 1=24th, 2=25th).     -->
+    <!-- The bar's own size and fill are inline locals, so the LCARS    -->
+    <!-- values ride on state-selected styles, which outrank them.      -->
+    <!-- ============================================================== -->
+    <style name="lcars24_bar" selector="user_1"
+           width="92" pad_top="0" pad_bottom="0" pad_left="0" pad_right="0" pad_row="3" bg_opa="0"
+           flex_main_place="start" flex_cross_place="start" flex_track_place="start"/>
+    <style name="lcars25_bar" selector="user_2"
+           width="64" pad_top="0" pad_bottom="0" pad_left="0" pad_right="0" pad_row="4" bg_opa="0"
+           flex_main_place="start" flex_cross_place="start" flex_track_place="start"/>
+    <style name="lcars24_elbow_box" height="58"/>
+    <style name="lcars25_elbow_box" height="44"/>
+    <!-- Sidebar blocks: an overlay that covers the stock icon button -->
+    <style name="lcars_block_base" bg_opa="255" radius="0" border_width="0" text_color="0x000000"/>
+    <style name="lcars24_peach" bg_color="0xFF9966"/>
+    <style name="lcars24_lilac" bg_color="0xCC99CC"/>
+    <style name="lcars24_violet" bg_color="0x9999FF"/>
+    <style name="lcars24_tan" bg_color="0xFFCC99"/>
+    <style name="lcars24_blue" bg_color="0x99CCFF"/>
+    <style name="lcars24_on" bg_color="0xFFCC66" border_side="left" border_width="8" border_color="0x000000"/>
+    <style name="lcars25_block" bg_color="0x0B1322" text_color="0x8FB3D9" border_side="left" border_width="4"
+           border_color="0x5B7BA8" outline_width="1" outline_color="0x22344D" outline_pad="-1"/>
+    <style name="lcars25_sky" border_color="0x8FB3D9"/>
+    <style name="lcars25_teal" border_color="0x6FC2C0"/>
+    <style name="lcars25_steel" border_color="0x5B7BA8"/>
+    <style name="lcars25_amber" border_color="0xF2A541"/>
+    <style name="lcars25_ice" border_color="0xB9D4F0"/>
+    <style name="lcars25_on" bg_color="0xB9D4F0" text_color="0x000000" border_color="0xF2A541"/>
+    <style name="lcars_block_off" bg_opa="110"/>
+    <!-- Labels: the theme re-colours label text, so dark text rides on a state -->
+    <style name="lcars_label_dark" selector="user_1" text_color="0x000000"/>
   </styles>
   <view extends="lv_obj"
         style_layout="flex" style_flex_main_place="center" style_flex_track_place="center"
@@ -88,6 +121,32 @@
         style_bg_color="#card_bg" style_bg_opa="255">
     <bind_style_if_eq name="nav_bar_portrait" subject="ui_is_portrait" ref_value="1"/>
     <bind_style_if_not_eq name="nav_bar_landscape" subject="ui_is_portrait" ref_value="1"/>
+    <!-- LCARS System: sidebar strip in place of the icon bar -->
+    <style name="lcars24_bar" selector="user_1"/>
+    <style name="lcars25_bar" selector="user_2"/>
+    <bind_state_if cond="settings_lcars_system eq 1" state="user_1"/>
+    <bind_state_if cond="settings_lcars_system eq 2" state="user_2"/>
+    <!-- LCARS elbow: a large rounded block clipped so only its top-left curve shows -->
+    <lv_obj name="nav_lcars_elbow"
+            width="100%" style_pad_all="0" style_border_width="0" style_bg_opa="0" style_radius="0"
+            scrollable="false" clickable="false" hidden="true">
+      <bind_flag_if cond="settings_lcars_system gt 0" flag="hidden" invert="true"/>
+      <bind_style_if name="lcars24_elbow_box" cond="settings_lcars_system eq 1"/>
+      <bind_style_if name="lcars25_elbow_box" cond="settings_lcars_system eq 2"/>
+      <lv_obj name="nav_lcars_elbow_24"
+              x="0" y="0" width="160" height="110" style_radius="40" style_bg_color="0xFF9900" style_bg_opa="255"
+              style_border_width="0" clickable="false" scrollable="false" hidden="true">
+        <bind_flag_if cond="settings_lcars_system eq 1" flag="hidden" invert="true"/>
+      </lv_obj>
+      <lv_obj name="nav_lcars_elbow_25"
+              x="0" y="0" width="120" height="90" style_radius="22" style_bg_color="0x5B7BA8" style_bg_opa="255"
+              style_border_width="0" clickable="false" scrollable="false" hidden="true">
+        <bind_flag_if cond="settings_lcars_system eq 2" flag="hidden" invert="true"/>
+      </lv_obj>
+      <lv_label name="nav_lcars_elbow_label"
+                text="Q2C" align="bottom_right" x="-7" y="-3" style_text_color="0x000000"
+                style_text_font="#font_small" style_text_letter_space="1"/>
+    </lv_obj>
     <!-- ================================================================== -->
     <!-- Edit Mode Buttons - visible only during home panel grid edit      -->
     <!-- ================================================================== -->
@@ -128,7 +187,7 @@
     <!-- Home Button (Panel 0) -->
     <ui_button name="nav_btn_home"
                width="100%" height="100%" flex_grow="1" variant="ghost" flex_flow="column"
-               style_flex_main_place="center" style_flex_cross_place="center" style_border_width="0">
+               style_flex_main_place="center" style_flex_cross_place="center" style_border_width="0" style_pad_all="0">
       <!-- Disabled and hidden during grid edit mode, leaving the bar to the edit buttons -->
       <bind_state_if_eq subject="home_edit_mode" state="disabled" ref_value="1"/>
       <bind_flag_if_eq subject="home_edit_mode" flag="hidden" ref_value="1"/>
@@ -145,6 +204,24 @@
         <style name="nav_icon_fade_on" selector="checked"/>
         <bind_state_if_not_eq subject="active_panel" state="checked" ref_value="0"/>
       </icon>
+          <!-- LCARS block: covers the icons with a labelled colour block -->
+      <lv_obj name="nav_lcars_home"
+              floating="true" width="100%" height="100%" clickable="false" event_bubble="true" scrollable="false"
+              style_layout="flex" flex_flow="column" style_flex_main_place="end" style_flex_cross_place="end"
+              style_pad_right="7" style_pad_bottom="3" style_pad_left="0" style_pad_top="0" hidden="true">
+        <bind_flag_if cond="settings_lcars_system gt 0" flag="hidden" invert="true"/>
+        <style name="lcars_block_base"/>
+        <bind_style_if name="lcars24_peach" cond="settings_lcars_system eq 1"/>
+        <bind_style_if name="lcars24_on" cond="settings_lcars_system eq 1 and active_panel eq 0"/>
+        <bind_style_if name="lcars25_block" cond="settings_lcars_system eq 2"/>
+        <bind_style_if name="lcars25_sky" cond="settings_lcars_system eq 2"/>
+        <bind_style_if name="lcars25_on" cond="settings_lcars_system eq 2 and active_panel eq 0"/>
+        <lv_label text="HOME" width="100%" style_text_align="right" style_text_font="#font_small" style_text_letter_space="1"
+                  style_text_color="0x8FB3D9">
+          <style name="lcars_label_dark" selector="user_1"/>
+          <bind_state_if cond="settings_lcars_system eq 1 or active_panel eq 0" state="user_1"/>
+        </lv_label>
+      </lv_obj>
     </ui_button>
     <!-- Controls Button (Panel 2) - CONNECTION + KLIPPY READY REQUIRED -->
     <!-- Uses combined nav_buttons_enabled subject (1=enabled when connected AND klippy ready) -->
@@ -178,6 +255,25 @@
       <icon name="nav_icon_controls_disabled" src="fine_tune" size="#icon_size" variant="disabled">
         <bind_flag_if_eq subject="nav_buttons_enabled" flag="hidden" ref_value="1"/>
       </icon>
+          <!-- LCARS block: covers the icons with a labelled colour block -->
+      <lv_obj name="nav_lcars_controls"
+              floating="true" width="100%" height="100%" clickable="false" event_bubble="true" scrollable="false"
+              style_layout="flex" flex_flow="column" style_flex_main_place="end" style_flex_cross_place="end"
+              style_pad_right="7" style_pad_bottom="3" style_pad_left="0" style_pad_top="0" hidden="true">
+        <bind_flag_if cond="settings_lcars_system gt 0" flag="hidden" invert="true"/>
+        <style name="lcars_block_base"/>
+        <bind_style_if name="lcars24_lilac" cond="settings_lcars_system eq 1"/>
+        <bind_style_if name="lcars24_on" cond="settings_lcars_system eq 1 and active_panel eq 2"/>
+        <bind_style_if name="lcars25_block" cond="settings_lcars_system eq 2"/>
+        <bind_style_if name="lcars25_teal" cond="settings_lcars_system eq 2"/>
+        <bind_style_if name="lcars25_on" cond="settings_lcars_system eq 2 and active_panel eq 2"/>
+        <bind_style_if name="lcars_block_off" cond="nav_buttons_enabled eq 0"/>
+        <lv_label text="CONTROL" width="100%" style_text_align="right" style_text_font="#font_small" style_text_letter_space="1"
+                  style_text_color="0x8FB3D9">
+          <style name="lcars_label_dark" selector="user_1"/>
+          <bind_state_if cond="settings_lcars_system eq 1 or active_panel eq 2" state="user_1"/>
+        </lv_label>
+      </lv_obj>
     </ui_button>
     <!-- Filament Button (Panel 3) - CONNECTION + KLIPPY READY REQUIRED -->
     <!-- Uses combined nav_buttons_enabled subject (1=enabled when connected AND klippy ready) -->
@@ -211,11 +307,30 @@
       <icon name="nav_icon_filament_disabled" src="filament" size="#icon_size" variant="disabled">
         <bind_flag_if_eq subject="nav_buttons_enabled" flag="hidden" ref_value="1"/>
       </icon>
+          <!-- LCARS block: covers the icons with a labelled colour block -->
+      <lv_obj name="nav_lcars_filament"
+              floating="true" width="100%" height="100%" clickable="false" event_bubble="true" scrollable="false"
+              style_layout="flex" flex_flow="column" style_flex_main_place="end" style_flex_cross_place="end"
+              style_pad_right="7" style_pad_bottom="3" style_pad_left="0" style_pad_top="0" hidden="true">
+        <bind_flag_if cond="settings_lcars_system gt 0" flag="hidden" invert="true"/>
+        <style name="lcars_block_base"/>
+        <bind_style_if name="lcars24_violet" cond="settings_lcars_system eq 1"/>
+        <bind_style_if name="lcars24_on" cond="settings_lcars_system eq 1 and active_panel eq 3"/>
+        <bind_style_if name="lcars25_block" cond="settings_lcars_system eq 2"/>
+        <bind_style_if name="lcars25_steel" cond="settings_lcars_system eq 2"/>
+        <bind_style_if name="lcars25_on" cond="settings_lcars_system eq 2 and active_panel eq 3"/>
+        <bind_style_if name="lcars_block_off" cond="nav_buttons_enabled eq 0"/>
+        <lv_label text="FILAMENT" width="100%" style_text_align="right" style_text_font="#font_small" style_text_letter_space="1"
+                  style_text_color="0x8FB3D9">
+          <style name="lcars_label_dark" selector="user_1"/>
+          <bind_state_if cond="settings_lcars_system eq 1 or active_panel eq 3" state="user_1"/>
+        </lv_label>
+      </lv_obj>
     </ui_button>
     <!-- Settings Button (Panel 4) -->
     <ui_button name="nav_btn_settings"
                width="100%" height="100%" flex_grow="1" variant="ghost" flex_flow="column"
-               style_flex_main_place="center" style_flex_cross_place="center" style_border_width="0">
+               style_flex_main_place="center" style_flex_cross_place="center" style_border_width="0" style_pad_all="0">
       <!-- Disabled and hidden during grid edit mode, leaving the bar to the edit buttons -->
       <bind_state_if_eq subject="home_edit_mode" state="disabled" ref_value="1"/>
       <bind_flag_if_eq subject="home_edit_mode" flag="hidden" ref_value="1"/>
@@ -231,11 +346,29 @@
         <style name="nav_icon_fade_on" selector="checked"/>
         <bind_state_if_not_eq subject="active_panel" state="checked" ref_value="4"/>
       </icon>
+          <!-- LCARS block: covers the icons with a labelled colour block -->
+      <lv_obj name="nav_lcars_settings"
+              floating="true" width="100%" height="100%" clickable="false" event_bubble="true" scrollable="false"
+              style_layout="flex" flex_flow="column" style_flex_main_place="end" style_flex_cross_place="end"
+              style_pad_right="7" style_pad_bottom="3" style_pad_left="0" style_pad_top="0" hidden="true">
+        <bind_flag_if cond="settings_lcars_system gt 0" flag="hidden" invert="true"/>
+        <style name="lcars_block_base"/>
+        <bind_style_if name="lcars24_tan" cond="settings_lcars_system eq 1"/>
+        <bind_style_if name="lcars24_on" cond="settings_lcars_system eq 1 and active_panel eq 4"/>
+        <bind_style_if name="lcars25_block" cond="settings_lcars_system eq 2"/>
+        <bind_style_if name="lcars25_amber" cond="settings_lcars_system eq 2"/>
+        <bind_style_if name="lcars25_on" cond="settings_lcars_system eq 2 and active_panel eq 4"/>
+        <lv_label text="SETTINGS" width="100%" style_text_align="right" style_text_font="#font_small" style_text_letter_space="1"
+                  style_text_color="0x8FB3D9">
+          <style name="lcars_label_dark" selector="user_1"/>
+          <bind_state_if cond="settings_lcars_system eq 1 or active_panel eq 4" state="user_1"/>
+        </lv_label>
+      </lv_obj>
     </ui_button>
     <!-- Advanced Button (Panel 5) -->
     <ui_button name="nav_btn_advanced"
                width="100%" height="100%" flex_grow="1" variant="ghost" flex_flow="column"
-               style_flex_main_place="center" style_flex_cross_place="center" style_border_width="0">
+               style_flex_main_place="center" style_flex_cross_place="center" style_border_width="0" style_pad_all="0">
       <!-- Disabled and hidden during grid edit mode, leaving the bar to the edit buttons -->
       <bind_state_if_eq subject="home_edit_mode" state="disabled" ref_value="1"/>
       <bind_flag_if_eq subject="home_edit_mode" flag="hidden" ref_value="1"/>
@@ -251,6 +384,24 @@
         <style name="nav_icon_fade_on" selector="checked"/>
         <bind_state_if_not_eq subject="active_panel" state="checked" ref_value="5"/>
       </icon>
+          <!-- LCARS block: covers the icons with a labelled colour block -->
+      <lv_obj name="nav_lcars_advanced"
+              floating="true" width="100%" height="100%" clickable="false" event_bubble="true" scrollable="false"
+              style_layout="flex" flex_flow="column" style_flex_main_place="end" style_flex_cross_place="end"
+              style_pad_right="7" style_pad_bottom="3" style_pad_left="0" style_pad_top="0" hidden="true">
+        <bind_flag_if cond="settings_lcars_system gt 0" flag="hidden" invert="true"/>
+        <style name="lcars_block_base"/>
+        <bind_style_if name="lcars24_blue" cond="settings_lcars_system eq 1"/>
+        <bind_style_if name="lcars24_on" cond="settings_lcars_system eq 1 and active_panel eq 5"/>
+        <bind_style_if name="lcars25_block" cond="settings_lcars_system eq 2"/>
+        <bind_style_if name="lcars25_ice" cond="settings_lcars_system eq 2"/>
+        <bind_style_if name="lcars25_on" cond="settings_lcars_system eq 2 and active_panel eq 5"/>
+        <lv_label text="SYSTEM" width="100%" style_text_align="right" style_text_font="#font_small" style_text_letter_space="1"
+                  style_text_color="0x8FB3D9">
+          <style name="lcars_label_dark" selector="user_1"/>
+          <bind_state_if cond="settings_lcars_system eq 1 or active_panel eq 5" state="user_1"/>
+        </lv_label>
+      </lv_obj>
     </ui_button>
     <!-- Printer switcher button — visible only when setting enabled -->
     <ui_button name="nav_printer_badge"

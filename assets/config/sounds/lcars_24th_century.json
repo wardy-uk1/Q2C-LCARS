@@ -1,0 +1,260 @@
+{
+  "name": "lcars_24th_century",
+  "description": "LCARS 24th Century: bright triangle-wave chirps in the TNG/Voyager style",
+  "version": 1,
+  "defaults": {
+    "wave": "triangle",
+    "vel": 0.8,
+    "env": {
+      "a": 3,
+      "d": 20,
+      "s": 0.6,
+      "r": 25
+    }
+  },
+  "sounds": {
+    "button_tap": {
+      "description": "Two-tone rising chirp",
+      "steps": [
+        {
+          "freq": 1480,
+          "dur": 45
+        },
+        {
+          "freq": 1976,
+          "dur": 50
+        }
+      ]
+    },
+    "toggle_on": {
+      "description": "Rising three-note chirp",
+      "steps": [
+        {
+          "freq": 1319,
+          "dur": 35
+        },
+        {
+          "freq": 1760,
+          "dur": 35
+        },
+        {
+          "freq": 2349,
+          "dur": 50
+        }
+      ]
+    },
+    "toggle_off": {
+      "description": "Falling three-note chirp",
+      "steps": [
+        {
+          "freq": 2349,
+          "dur": 35
+        },
+        {
+          "freq": 1760,
+          "dur": 35
+        },
+        {
+          "freq": 1319,
+          "dur": 50
+        }
+      ]
+    },
+    "nav_forward": {
+      "description": "Screen change: ascending trill",
+      "steps": [
+        {
+          "freq": 988,
+          "dur": 40
+        },
+        {
+          "freq": 1319,
+          "dur": 40
+        },
+        {
+          "freq": 1760,
+          "dur": 50
+        }
+      ]
+    },
+    "nav_back": {
+      "description": "Screen back: descending trill",
+      "steps": [
+        {
+          "freq": 1760,
+          "dur": 40
+        },
+        {
+          "freq": 1319,
+          "dur": 40
+        },
+        {
+          "freq": 988,
+          "dur": 50
+        }
+      ]
+    },
+    "dropdown_open": {
+      "description": "Short high blip",
+      "steps": [
+        {
+          "freq": 2093,
+          "dur": 35
+        }
+      ]
+    },
+    "print_complete": {
+      "description": "Completion fanfare",
+      "steps": [
+        {
+          "freq": 1319,
+          "dur": 90
+        },
+        {
+          "freq": 1760,
+          "dur": 90
+        },
+        {
+          "freq": 2217,
+          "dur": 90
+        },
+        {
+          "freq": 2637,
+          "dur": 220
+        }
+      ]
+    },
+    "print_cancelled": {
+      "description": "Descending acknowledgement",
+      "steps": [
+        {
+          "freq": 1760,
+          "dur": 120
+        },
+        {
+          "freq": 1319,
+          "dur": 120
+        },
+        {
+          "freq": 988,
+          "dur": 240
+        }
+      ]
+    },
+    "error_alert": {
+      "description": "Alert klaxon: alternating tones",
+      "steps": [
+        {
+          "freq": 740,
+          "dur": 200,
+          "wave": "square",
+          "vel": 0.7
+        },
+        {
+          "freq": 587,
+          "dur": 200,
+          "wave": "square",
+          "vel": 0.7
+        },
+        {
+          "freq": 740,
+          "dur": 200,
+          "wave": "square",
+          "vel": 0.7
+        },
+        {
+          "freq": 587,
+          "dur": 200,
+          "wave": "square",
+          "vel": 0.7
+        }
+      ]
+    },
+    "error_tone": {
+      "description": "Denied: low double buzz",
+      "steps": [
+        {
+          "freq": 330,
+          "dur": 90,
+          "wave": "square",
+          "vel": 0.7
+        },
+        {
+          "pause": 40
+        },
+        {
+          "freq": 262,
+          "dur": 130,
+          "wave": "square",
+          "vel": 0.6
+        }
+      ]
+    },
+    "alarm_urgent": {
+      "description": "Continuous alert",
+      "steps": [
+        {
+          "freq": 740,
+          "dur": 250,
+          "wave": "square"
+        },
+        {
+          "freq": 587,
+          "dur": 250,
+          "wave": "square"
+        },
+        {
+          "pause": 80
+        },
+        {
+          "freq": 740,
+          "dur": 250,
+          "wave": "square"
+        },
+        {
+          "freq": 587,
+          "dur": 250,
+          "wave": "square"
+        }
+      ]
+    },
+    "test_beep": {
+      "description": "Test chirp",
+      "steps": [
+        {
+          "freq": 1480,
+          "dur": 60
+        },
+        {
+          "freq": 1976,
+          "dur": 80
+        }
+      ]
+    },
+    "startup": {
+      "description": "Console power-up sweep",
+      "steps": [
+        {
+          "freq": 523,
+          "dur": 70
+        },
+        {
+          "freq": 784,
+          "dur": 70
+        },
+        {
+          "freq": 1047,
+          "dur": 70
+        },
+        {
+          "freq": 1568,
+          "dur": 70
+        },
+        {
+          "freq": 2093,
+          "dur": 140
+        }
+      ]
+    }
+  }
+}

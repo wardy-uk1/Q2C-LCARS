@@ -18,9 +18,12 @@
 
 #include "border_radius_sizes.h"
 #include "core/temperature_units.h"
+#include "audio_settings_manager.h"
 #include "display_settings_manager.h"
 #include "lvgl.h"
 #include "settings_manager.h"
+#include "sound_manager.h"
+#include "theme_loader.h"
 #include "theme_manager.h"
 #include "ui/ui_widget_helpers.h"
 
@@ -61,6 +64,41 @@ bool theme_is_showing(const helix::ThemeData& theme, bool dark) {
            same_properties(active.properties, theme.properties);
 }
 
+/// LCARS System: one choice sets the skin, its colour theme and its sound theme.
+void apply_lcars_system(int mode) {
+    static constexpr const char* kThemes[] = {nullptr, "lcars-24th-century", "lcars-25th-century"};
+    static constexpr const char* kSounds[] = {nullptr, "lcars_24th_century", "lcars_25th_century"};
+    auto& display = DisplaySettingsManager::instance();
+    const int previous = display.get_lcars_system();
+    mode = std::clamp(mode, 0, 2);
+    display.set_lcars_system(mode);
+
+    std::string theme_file;
+    if (kThemes[mode]) {
+        theme_file = kThemes[mode];
+    } else if (previous != 0) {
+        theme_file = helix::kDefaultTheme;
+    }
+    if (!theme_file.empty()) {
+        helix::ThemeData theme = helix::load_theme_from_file(theme_file);
+        if (theme.is_valid()) {
+            display.set_theme_name(theme_file);
+            lv_subject_set_int(display.subject_theme_preset(), display.get_theme_index());
+            theme_manager_apply_theme(theme, kThemes[mode] ? true : display.get_dark_mode());
+            display.on_theme_changed();
+        } else {
+            spdlog::error("[Appearance] LCARS theme '{}' failed to load", theme_file);
+        }
+    }
+
+    const std::string sound = kSounds[mode] ? kSounds[mode] : (previous != 0 ? "default" : "");
+    if (!sound.empty()) {
+        AudioSettingsManager::instance().set_sound_theme(sound);
+        SoundManager::instance().set_theme(sound);
+    }
+    spdlog::info("[Appearance] LCARS System set to {}", mode);
+}
+
 } // namespace
 
 void AppearanceSettingsOverlay::init_subjects() {
@@ -98,6 +136,7 @@ void AppearanceSettingsOverlay::register_callbacks() {
              DisplaySettingsManager::instance().set_temp_unit(
                  static_cast<units::TempUnit>(event_selected(e)));
          }},
+        {"on_lcars_system_changed", [](lv_event_t* e) { apply_lcars_system(event_selected(e)); }},
         {"on_bed_mesh_mode_changed",
          [](lv_event_t* e) {
              DisplaySettingsManager::instance().set_bed_mesh_render_mode(event_selected(e));

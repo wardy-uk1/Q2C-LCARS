@@ -1,0 +1,27 @@
+{
+  "name": "LCARS 25th Century",
+  "dark": {
+    "screen_bg": "#05080F",
+    "overlay_bg": "#0B1322",
+    "card_bg": "#0B1322",
+    "elevated_bg": "#16233A",
+    "border": "#22344D",
+    "text": "#E3ECF7",
+    "text_muted": "#B9D4F0",
+    "text_subtle": "#7F9CC4",
+    "primary": "#F2A541",
+    "secondary": "#8FB3D9",
+    "tertiary": "#5B7BA8",
+    "info": "#6FC2C0",
+    "success": "#6FC2C0",
+    "warning": "#F2A541",
+    "danger": "#E5544A",
+    "focus": "#B9D4F0"
+  },
+  "border_radius_size": 2,
+  "border_width": 1,
+  "border_opacity": 100,
+  "shadow_intensity": 0,
+  "shadow_opa": 0,
+  "shadow_offset_y": 0
+}

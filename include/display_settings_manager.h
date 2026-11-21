@@ -325,6 +325,14 @@ class DisplaySettingsManager {
     /// Persist the unit and make it the one every temperature readout uses.
     void set_temp_unit(units::TempUnit unit);
 
+    /// LCARS System skin: 0 = off, 1 = 24th Century, 2 = 25th Century.
+    int get_lcars_system() const {
+        return std::clamp(settings_.get(Key::LcarsSystem), 0, 2);
+    }
+    void set_lcars_system(int mode) {
+        settings_.set(Key::LcarsSystem, std::clamp(mode, 0, 2));
+    }
+
     /// The date order: the saved choice, or the active language's while none is saved.
     DateFormat get_date_format() const;
     void set_date_format(DateFormat format);
@@ -708,6 +716,7 @@ class DisplaySettingsManager {
         ScreensaverPrintProgress,
         TempUnit,
         DateFormat,
+        LcarsSystem,
         COUNT
     };
     settings::PersistedSettings<Key, static_cast<size_t>(Key::COUNT)> settings_;

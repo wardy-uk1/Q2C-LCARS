@@ -1,0 +1,201 @@
+{
+  "name": "lcars_25th_century",
+  "description": "LCARS 25th Century: softer, shorter sine tones in the Picard-era style",
+  "version": 1,
+  "defaults": {
+    "wave": "sine",
+    "vel": 0.7,
+    "env": {
+      "a": 2,
+      "d": 15,
+      "s": 0.5,
+      "r": 30
+    }
+  },
+  "sounds": {
+    "button_tap": {
+      "description": "Soft high tick",
+      "steps": [
+        {
+          "freq": 2093,
+          "dur": 35
+        }
+      ]
+    },
+    "toggle_on": {
+      "description": "Soft rising pair",
+      "steps": [
+        {
+          "freq": 1568,
+          "dur": 35
+        },
+        {
+          "freq": 2093,
+          "dur": 50
+        }
+      ]
+    },
+    "toggle_off": {
+      "description": "Soft falling pair",
+      "steps": [
+        {
+          "freq": 2093,
+          "dur": 35
+        },
+        {
+          "freq": 1568,
+          "dur": 50
+        }
+      ]
+    },
+    "nav_forward": {
+      "description": "Gentle ascending pair",
+      "steps": [
+        {
+          "freq": 1568,
+          "dur": 30
+        },
+        {
+          "freq": 2093,
+          "dur": 45
+        }
+      ]
+    },
+    "nav_back": {
+      "description": "Gentle descending pair",
+      "steps": [
+        {
+          "freq": 2093,
+          "dur": 30
+        },
+        {
+          "freq": 1568,
+          "dur": 45
+        }
+      ]
+    },
+    "dropdown_open": {
+      "description": "Faint blip",
+      "steps": [
+        {
+          "freq": 2349,
+          "dur": 25,
+          "vel": 0.5
+        }
+      ]
+    },
+    "print_complete": {
+      "description": "Calm completion chime",
+      "steps": [
+        {
+          "freq": 1047,
+          "dur": 140
+        },
+        {
+          "freq": 1319,
+          "dur": 140
+        },
+        {
+          "freq": 1568,
+          "dur": 280
+        }
+      ]
+    },
+    "print_cancelled": {
+      "description": "Low falling chime",
+      "steps": [
+        {
+          "freq": 1319,
+          "dur": 140
+        },
+        {
+          "freq": 988,
+          "dur": 260
+        }
+      ]
+    },
+    "error_alert": {
+      "description": "Soft two-tone alert",
+      "steps": [
+        {
+          "freq": 523,
+          "dur": 280
+        },
+        {
+          "freq": 466,
+          "dur": 280
+        },
+        {
+          "freq": 523,
+          "dur": 280
+        }
+      ]
+    },
+    "error_tone": {
+      "description": "Muted denial",
+      "steps": [
+        {
+          "freq": 392,
+          "dur": 100
+        },
+        {
+          "pause": 30
+        },
+        {
+          "freq": 330,
+          "dur": 140
+        }
+      ]
+    },
+    "alarm_urgent": {
+      "description": "Repeating soft alert",
+      "steps": [
+        {
+          "freq": 523,
+          "dur": 300
+        },
+        {
+          "freq": 466,
+          "dur": 300
+        },
+        {
+          "pause": 120
+        },
+        {
+          "freq": 523,
+          "dur": 300
+        },
+        {
+          "freq": 466,
+          "dur": 300
+        }
+      ]
+    },
+    "test_beep": {
+      "description": "Test tone",
+      "steps": [
+        {
+          "freq": 2093,
+          "dur": 80
+        }
+      ]
+    },
+    "startup": {
+      "description": "Quiet ascending start",
+      "steps": [
+        {
+          "freq": 784,
+          "dur": 90
+        },
+        {
+          "freq": 1047,
+          "dur": 90
+        },
+        {
+          "freq": 1568,
+          "dur": 160
+        }
+      ]
+    }
+  }
+}

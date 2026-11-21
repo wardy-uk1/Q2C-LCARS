@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!-- LCARS System print status body: 24th Century (classic) and 25th Century (Picard-era).
+     Shown in place of print_status_body while settings_lcars_system is on; the stock body
+     stays built beneath it so the panel's named-widget lookups still resolve. -->
+<component>
+  <styles>
+    <style name="lcars_stat_edge_24" border_width="3" border_color="0x9999FF" border_side="left"/>
+    <style name="lcars_stat_edge_25" border_width="2" border_color="0x5B7BA8" border_side="left"/>
+  </styles>
+  <view extends="lv_obj"
+        width="100%" height="100%" style_bg_opa="0" style_border_width="0" style_pad_all="0" scrollable="false">
+    <!-- 24th Century -->
+    <lv_obj name="lcars_ps_24"
+            width="100%" height="100%" flex_flow="column" style_pad_row="5" style_bg_opa="0" style_border_width="0"
+            style_pad_all="0" scrollable="false" hidden="true">
+      <bind_flag_if cond="settings_lcars_system eq 1" flag="hidden" invert="true"/>
+      <lv_obj width="100%" height="content" flex_flow="row" style_flex_cross_place="end" style_pad_column="8"
+              style_bg_opa="0" style_border_width="0" style_pad_all="0" scrollable="false" clickable="false">
+        <lv_label text="ACTIVE PRINT" style_text_font="#font_xs" style_text_color="0x9999FF" style_text_letter_space="1"/>
+        <lv_label bind_text="print_display_filename" flex_grow="1" long_mode="dots" style_text_align="right"
+                  style_text_font="#font_body" style_text_color="0xFFCC99"/>
+      </lv_obj>
+      <lv_obj width="100%" height="content" flex_flow="row" style_pad_column="8" style_bg_opa="0" style_border_width="0"
+              style_pad_all="0" scrollable="false" clickable="false">
+        <lv_obj width="34%" height="content" flex_flow="column" style_flex_main_place="center" style_bg_opa="0"
+                style_border_width="0" style_pad_all="0" scrollable="false" clickable="false">
+          <lv_label bind_text="print_progress_text" style_text_font="noto_sans_bold_28" style_text_color="0xFFCC66"/>
+          <lv_label text="COMPLETE" style_text_font="#font_xs" style_text_color="0xFF9966" style_text_letter_space="1"/>
+        </lv_obj>
+        <lv_obj flex_grow="1" height="content" flex_flow="row_wrap" style_bg_opa="0" style_border_width="0" style_pad_all="0"
+                style_pad_row="3" style_pad_column="8" scrollable="false" clickable="false"
+               >
+          <lv_obj width="47%" height="content" flex_flow="column" style_bg_opa="0"
+                  style_pad_all="0" style_pad_left="6" scrollable="false" clickable="false">
+            <style name="lcars_stat_edge_24"/>
+            <lv_label text="LAYER" style_text_font="#font_xs" style_text_color="0x9999FF" style_text_letter_space="1"/>
+            <lv_label bind_text="print_status_layer_text" style_text_font="#font_body" style_text_color="0xFFCC99" long_mode="dots" width="100%"/>
+          </lv_obj>
+          <lv_obj width="47%" height="content" flex_flow="column" style_bg_opa="0"
+                  style_pad_all="0" style_pad_left="6" scrollable="false" clickable="false">
+            <style name="lcars_stat_edge_24"/>
+            <lv_label text="ELAPSED" style_text_font="#font_xs" style_text_color="0x9999FF" style_text_letter_space="1"/>
+            <lv_label bind_text="print_elapsed" style_text_font="#font_body" style_text_color="0xFFCC99" long_mode="dots" width="100%"/>
+          </lv_obj>
+          <lv_obj width="47%" height="content" flex_flow="column" style_bg_opa="0"
+                  style_pad_all="0" style_pad_left="6" scrollable="false" clickable="false">
+            <style name="lcars_stat_edge_24"/>
+            <lv_label text="REMAINING" style_text_font="#font_xs" style_text_color="0x9999FF" style_text_letter_space="1"/>
+            <lv_label bind_text="print_remaining" style_text_font="#font_body" style_text_color="0xFFCC99" long_mode="dots" width="100%"/>
+          </lv_obj>
+          <lv_obj width="47%" height="content" flex_flow="column" style_bg_opa="0"
+                  style_pad_all="0" style_pad_left="6" scrollable="false" clickable="false">
+            <style name="lcars_stat_edge_24"/>
+            <lv_label text="SPEED" style_text_font="#font_xs" style_text_color="0x9999FF" style_text_letter_space="1"/>
+            <lv_label bind_text="print_status_speed_text" style_text_font="#font_body" style_text_color="0xFFCC99" long_mode="dots" width="100%"/>
+          </lv_obj>
+        </lv_obj>
+      </lv_obj>
+      <lv_bar width="100%" height="10" min_value="0" max_value="100" bind_value="print_progress_display"
+              style_bg_color="0x2A2A2A" style_bg_opa="255" style_radius="5"
+              style_bg_color-indicator="0xFF9900" style_bg_opa-indicator="255" style_radius-indicator="5"/>
+      <lv_obj width="100%" height="content" flex_flow="row" style_pad_column="8" style_bg_opa="0" style_border_width="0"
+              style_pad_all="0" scrollable="false" clickable="false">
+        <lv_obj flex_grow="1" height="content" flex_flow="row" style_flex_cross_place="center" style_pad_column="6"
+                style_bg_opa="0" style_border_width="0" style_pad_all="0" scrollable="false" clickable="false">
+          <lv_label text="NOZZLE" style_bg_color="0xCC99CC" style_bg_opa="255" style_radius="10"
+                    style_pad_hor="8" style_pad_ver="1" style_text_color="0x000000" style_text_font="#font_xs"/>
+          <lv_label bind_text="ps_chip_nozzle_text" style_text_font="#font_body" style_text_color="0xFFCC99"/>
+        </lv_obj>
+        <lv_obj flex_grow="1" height="content" flex_flow="row" style_flex_cross_place="center" style_pad_column="6"
+                style_bg_opa="0" style_border_width="0" style_pad_all="0" scrollable="false" clickable="false">
+          <lv_label text="BED" style_bg_color="0x99CCFF" style_bg_opa="255" style_radius="10"
+                    style_pad_hor="8" style_pad_ver="1" style_text_color="0x000000" style_text_font="#font_xs"/>
+          <lv_label bind_text="ps_chip_bed_text" style_text_font="#font_body" style_text_color="0xFFCC99"/>
+        </lv_obj>
+      </lv_obj>
+      <lv_obj width="100%" flex_grow="1" style_bg_opa="0" style_border_width="0" scrollable="false" clickable="false"/>
+      <lv_obj width="100%" height="content" flex_flow="row" style_pad_column="6" style_bg_opa="0" style_border_width="0"
+              style_pad_all="0" scrollable="false" clickable="false">
+        <ui_button name="lcars24_btn_primary" text="PAUSE" bind_text="print_control_primary_label" flex_grow="1" height="40"
+                   style_bg_color="0xFFCC66" style_bg_opa="255" style_radius="22" style_text_color="0x000000"
+                   style_border_width="0" style_border_color="0xCC99CC" style_shadow_width="0">
+          <event_cb trigger="clicked" callback="on_print_control_primary"/>
+          <bind_state_if_eq subject="print_control_primary_enabled" state="disabled" ref_value="0"/>
+        </ui_button>
+        <ui_button name="lcars24_btn_tune" text="TUNE" flex_grow="1" height="40"
+                   style_bg_color="0xCC99CC" style_bg_opa="255" style_radius="22" style_text_color="0x000000"
+                   style_border_width="0" style_border_color="0xCC99CC" style_shadow_width="0">
+          <event_cb trigger="clicked" callback="on_print_status_tune"/>
+        </ui_button>
+        <ui_button name="lcars24_btn_stop" text="STOP" flex_grow="1" height="40"
+                   style_bg_color="0xFF5555" style_bg_opa="255" style_radius="22" style_text_color="0x000000"
+                   style_border_width="0" style_border_color="0xCC99CC" style_shadow_width="0">
+          <event_cb trigger="clicked" callback="on_print_control_stop"/>
+          <bind_state_if_eq subject="print_control_stop_enabled" state="disabled" ref_value="0"/>
+        </ui_button>
+      </lv_obj>
+    </lv_obj>
+    <!-- 25th Century -->
+    <lv_obj name="lcars_ps_25"
+            width="100%" height="100%" flex_flow="column" style_pad_row="5" style_bg_opa="0" style_border_width="0"
+            style_pad_all="0" scrollable="false" hidden="true">
+      <bind_flag_if cond="settings_lcars_system eq 2" flag="hidden" invert="true"/>
+      <lv_obj width="100%" height="content" flex_flow="row" style_flex_cross_place="end" style_pad_column="8"
+              style_bg_opa="0" style_border_width="0" style_pad_all="0" scrollable="false" clickable="false">
+        <lv_label text="ACTIVE PRINT" style_text_font="#font_xs" style_text_color="0x7F9CC4" style_text_letter_space="1"/>
+        <lv_label bind_text="print_display_filename" flex_grow="1" long_mode="dots" style_text_align="right"
+                  style_text_font="#font_body" style_text_color="0xE3ECF7"/>
+      </lv_obj>
+      <lv_obj width="100%" height="content" flex_flow="row" style_pad_column="8" style_bg_opa="0" style_border_width="0"
+              style_pad_all="0" scrollable="false" clickable="false">
+        <lv_obj width="34%" height="content" flex_flow="column" style_flex_main_place="center"
+                scrollable="false" clickable="false" style_bg_color="0x0B1322" style_bg_opa="255" style_border_color="0x22344D" style_border_width="1" style_radius="6" style_pad_all="4">
+          <lv_label bind_text="print_progress_text" style_text_font="noto_sans_bold_28" style_text_color="0xF2A541"/>
+          <lv_label text="COMPLETE" style_text_font="#font_xs" style_text_color="0x7F9CC4" style_text_letter_space="1"/>
+        </lv_obj>
+        <lv_obj flex_grow="1" height="content" flex_flow="row_wrap"
+                style_pad_row="3" style_pad_column="8" scrollable="false" clickable="false"
+                style_bg_color="0x0B1322" style_bg_opa="255" style_border_color="0x22344D" style_border_width="1" style_radius="6" style_pad_all="4">
+          <lv_obj width="47%" height="content" flex_flow="column" style_bg_opa="0"
+                  style_pad_all="0" style_pad_left="6" scrollable="false" clickable="false">
+            <style name="lcars_stat_edge_25"/>
+            <lv_label text="LAYER" style_text_font="#font_xs" style_text_color="0x7F9CC4" style_text_letter_space="1"/>
+            <lv_label bind_text="print_status_layer_text" style_text_font="#font_body" style_text_color="0xE3ECF7" long_mode="dots" width="100%"/>
+          </lv_obj>
+          <lv_obj width="47%" height="content" flex_flow="column" style_bg_opa="0"
+                  style_pad_all="0" style_pad_left="6" scrollable="false" clickable="false">
+            <style name="lcars_stat_edge_25"/>
+            <lv_label text="ELAPSED" style_text_font="#font_xs" style_text_color="0x7F9CC4" style_text_letter_space="1"/>
+            <lv_label bind_text="print_elapsed" style_text_font="#font_body" style_text_color="0xE3ECF7" long_mode="dots" width="100%"/>
+          </lv_obj>
+          <lv_obj width="47%" height="content" flex_flow="column" style_bg_opa="0"
+                  style_pad_all="0" style_pad_left="6" scrollable="false" clickable="false">
+            <style name="lcars_stat_edge_25"/>
+            <lv_label text="REMAINING" style_text_font="#font_xs" style_text_color="0x7F9CC4" style_text_letter_space="1"/>
+            <lv_label bind_text="print_remaining" style_text_font="#font_body" style_text_color="0xE3ECF7" long_mode="dots" width="100%"/>
+          </lv_obj>
+          <lv_obj width="47%" height="content" flex_flow="column" style_bg_opa="0"
+                  style_pad_all="0" style_pad_left="6" scrollable="false" clickable="false">
+            <style name="lcars_stat_edge_25"/>
+            <lv_label text="SPEED" style_text_font="#font_xs" style_text_color="0x7F9CC4" style_text_letter_space="1"/>
+            <lv_label bind_text="print_status_speed_text" style_text_font="#font_body" style_text_color="0xE3ECF7" long_mode="dots" width="100%"/>
+          </lv_obj>
+        </lv_obj>
+      </lv_obj>
+      <lv_bar width="100%" height="6" min_value="0" max_value="100" bind_value="print_progress_display"
+              style_bg_color="0x22344D" style_bg_opa="255" style_radius="0"
+              style_bg_color-indicator="0xF2A541" style_bg_opa-indicator="255" style_radius-indicator="0"/>
+      <lv_obj width="100%" height="content" flex_flow="row" style_pad_column="8" style_bg_opa="0" style_border_width="0"
+              style_pad_all="0" scrollable="false" clickable="false">
+        <lv_obj flex_grow="1" height="content" flex_flow="row" style_flex_cross_place="center" style_pad_column="6"
+                style_bg_opa="0" style_border_width="0" style_pad_all="0" scrollable="false" clickable="false">
+          <lv_label text="NOZZLE" style_bg_color="0x8FB3D9" style_bg_opa="255" style_radius="3"
+                    style_pad_hor="8" style_pad_ver="1" style_text_color="0x000000" style_text_font="#font_xs"/>
+          <lv_label bind_text="ps_chip_nozzle_text" style_text_font="#font_body" style_text_color="0xE3ECF7"/>
+        </lv_obj>
+        <lv_obj flex_grow="1" height="content" flex_flow="row" style_flex_cross_place="center" style_pad_column="6"
+                style_bg_opa="0" style_border_width="0" style_pad_all="0" scrollable="false" clickable="false">
+          <lv_label text="BED" style_bg_color="0x6FC2C0" style_bg_opa="255" style_radius="3"
+                    style_pad_hor="8" style_pad_ver="1" style_text_color="0x000000" style_text_font="#font_xs"/>
+          <lv_label bind_text="ps_chip_bed_text" style_text_font="#font_body" style_text_color="0xE3ECF7"/>
+        </lv_obj>
+      </lv_obj>
+      <lv_obj width="100%" flex_grow="1" style_bg_opa="0" style_border_width="0" scrollable="false" clickable="false"/>
+      <lv_obj width="100%" height="content" flex_flow="row" style_pad_column="6" style_bg_opa="0" style_border_width="0"
+              style_pad_all="0" scrollable="false" clickable="false">
+        <ui_button name="lcars25_btn_primary" text="PAUSE" bind_text="print_control_primary_label" flex_grow="1" height="40"
+                   style_bg_color="0xF2A541" style_bg_opa="255" style_radius="6" style_text_color="0x000000"
+                   style_border_width="0" style_border_color="0x5B7BA8" style_shadow_width="0">
+          <event_cb trigger="clicked" callback="on_print_control_primary"/>
+          <bind_state_if_eq subject="print_control_primary_enabled" state="disabled" ref_value="0"/>
+        </ui_button>
+        <ui_button name="lcars25_btn_tune" text="TUNE" flex_grow="1" height="40"
+                   style_bg_color="0x05080F" style_bg_opa="255" style_radius="6" style_text_color="0xB9D4F0"
+                   style_border_width="1" style_border_color="0x5B7BA8" style_shadow_width="0">
+          <event_cb trigger="clicked" callback="on_print_status_tune"/>
+        </ui_button>
+        <ui_button name="lcars25_btn_stop" text="STOP" flex_grow="1" height="40"
+                   style_bg_color="0xE5544A" style_bg_opa="255" style_radius="6" style_text_color="0x000000"
+                   style_border_width="0" style_border_color="0x5B7BA8" style_shadow_width="0">
+          <event_cb trigger="clicked" callback="on_print_control_stop"/>
+          <bind_state_if_eq subject="print_control_stop_enabled" state="disabled" ref_value="0"/>
+        </ui_button>
+      </lv_obj>
+    </lv_obj>
+  </view>
+</component>

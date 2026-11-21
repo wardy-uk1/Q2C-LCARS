@@ -17,6 +17,12 @@
       <bind_style_if_eq name="content_micro" subject="ui_breakpoint" ref_value="0"/>
       <bind_style_if_ge name="content_standard" subject="ui_breakpoint" ref_value="1"/>
       <setting_group name="group_appearance">
+        <!-- LCARS System: picks the LCARS skin, with its colours and sounds -->
+        <setting_dropdown_row name="row_lcars_system"
+                              label="LCARS System" icon="palette"
+                              description="Star Trek style interface: classic or Picard-era"
+                              options="Off&#10;24th Century&#10;25th Century" options_tag="Off&#10;24th Century&#10;25th Century"
+                              bind_selected="settings_lcars_system" callback="on_lcars_system_changed"/>
         <!-- Dark Mode Toggle -->
         <setting_toggle_row name="row_dark_mode"
                             label="Dark Mode" icon="light_off" description="Switch between light and dark themes"

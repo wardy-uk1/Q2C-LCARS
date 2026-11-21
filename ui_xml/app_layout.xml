@@ -30,6 +30,79 @@
          each 100% only ever resolves on the cross axis. -->
     <lv_obj name="content_area"
             width="100%" height="100%" flex_grow="1" style_bg_opa="0%" style_pad_all="0" flex_flow="column">
+      <!-- LCARS System header bar: joins the sidebar elbow with a concave inner curve -->
+      <lv_obj name="lcars_header_24"
+              width="100%" height="30" style_bg_opa="0" style_border_width="0" style_pad_all="0" style_radius="0"
+              style_layout="flex" flex_flow="row" style_pad_column="4" style_flex_cross_place="start"
+              scrollable="false" clickable="false" hidden="true">
+        <bind_flag_if cond="settings_lcars_system eq 1" flag="hidden" invert="true"/>
+        <lv_obj width="150" height="30" style_bg_color="0xFF9900" style_bg_opa="255" style_border_width="0"
+                style_radius="0" style_pad_all="0" scrollable="false" clickable="false">
+          <lv_obj x="0" y="20" width="320" height="60" style_radius="12" style_bg_color="0x000000" style_bg_opa="255"
+                  style_border_width="0" scrollable="false" clickable="false"/>
+        </lv_obj>
+        <lv_obj width="36" height="20" style_bg_color="0xCC99CC" style_bg_opa="255" style_border_width="0"
+                style_radius="0" clickable="false"/>
+        <lv_obj flex_grow="1" height="30" style_bg_opa="0" style_border_width="0" style_pad_all="0" style_pad_right="2"
+                style_layout="flex" flex_flow="row" scrollable="false" clickable="false">
+          <lv_label text="HOME" flex_grow="1" style_text_align="right" style_text_color="0xFF9900" style_text_font="#font_body_bold" style_text_letter_space="1" hidden="true">
+            <bind_flag_if cond="active_panel eq 0" flag="hidden" invert="true"/>
+          </lv_label>
+          <lv_label text="PRINT FILES" flex_grow="1" style_text_align="right" style_text_color="0xFF9900" style_text_font="#font_body_bold" style_text_letter_space="1" hidden="true">
+            <bind_flag_if cond="active_panel eq 1" flag="hidden" invert="true"/>
+          </lv_label>
+          <lv_label text="CONTROLS" flex_grow="1" style_text_align="right" style_text_color="0xFF9900" style_text_font="#font_body_bold" style_text_letter_space="1" hidden="true">
+            <bind_flag_if cond="active_panel eq 2" flag="hidden" invert="true"/>
+          </lv_label>
+          <lv_label text="FILAMENT" flex_grow="1" style_text_align="right" style_text_color="0xFF9900" style_text_font="#font_body_bold" style_text_letter_space="1" hidden="true">
+            <bind_flag_if cond="active_panel eq 3" flag="hidden" invert="true"/>
+          </lv_label>
+          <lv_label text="SETTINGS" flex_grow="1" style_text_align="right" style_text_color="0xFF9900" style_text_font="#font_body_bold" style_text_letter_space="1" hidden="true">
+            <bind_flag_if cond="active_panel eq 4" flag="hidden" invert="true"/>
+          </lv_label>
+          <lv_label text="ADVANCED" flex_grow="1" style_text_align="right" style_text_color="0xFF9900" style_text_font="#font_body_bold" style_text_letter_space="1" hidden="true">
+            <bind_flag_if cond="active_panel eq 5" flag="hidden" invert="true"/>
+          </lv_label>
+        </lv_obj>
+        <lv_obj width="30" height="20" style_bg_color="0xFF9966" style_bg_opa="255" style_border_width="0"
+                style_radius="10" clickable="false"/>
+      </lv_obj>
+      <lv_obj name="lcars_header_25"
+              width="100%" height="20" style_bg_opa="0" style_border_width="0" style_pad_all="0" style_radius="0"
+              style_layout="flex" flex_flow="row" style_pad_column="4" style_flex_cross_place="start"
+              scrollable="false" clickable="false" hidden="true">
+        <bind_flag_if cond="settings_lcars_system eq 2" flag="hidden" invert="true"/>
+        <lv_obj width="150" height="20" style_bg_color="0x5B7BA8" style_bg_opa="255" style_border_width="0"
+                style_radius="0" style_pad_all="0" scrollable="false" clickable="false">
+          <lv_obj x="0" y="8" width="320" height="60" style_radius="6" style_bg_color="0x05080F" style_bg_opa="255"
+                  style_border_width="0" scrollable="false" clickable="false"/>
+        </lv_obj>
+        <lv_obj width="22" height="8" style_bg_color="0xF2A541" style_bg_opa="255" style_border_width="0"
+                style_radius="0" clickable="false"/>
+        <lv_obj width="8" height="8" style_bg_color="0x8FB3D9" style_bg_opa="255" style_border_width="0"
+                style_radius="0" clickable="false"/>
+        <lv_obj flex_grow="1" height="20" style_bg_opa="0" style_border_width="0" style_pad_all="0" style_pad_right="6"
+                style_layout="flex" flex_flow="row" scrollable="false" clickable="false">
+          <lv_label text="HOME" flex_grow="1" style_text_align="right" style_text_color="0xB9D4F0" style_text_font="#font_small" style_text_letter_space="3" hidden="true">
+            <bind_flag_if cond="active_panel eq 0" flag="hidden" invert="true"/>
+          </lv_label>
+          <lv_label text="PRINT FILES" flex_grow="1" style_text_align="right" style_text_color="0xB9D4F0" style_text_font="#font_small" style_text_letter_space="3" hidden="true">
+            <bind_flag_if cond="active_panel eq 1" flag="hidden" invert="true"/>
+          </lv_label>
+          <lv_label text="CONTROLS" flex_grow="1" style_text_align="right" style_text_color="0xB9D4F0" style_text_font="#font_small" style_text_letter_space="3" hidden="true">
+            <bind_flag_if cond="active_panel eq 2" flag="hidden" invert="true"/>
+          </lv_label>
+          <lv_label text="FILAMENT" flex_grow="1" style_text_align="right" style_text_color="0xB9D4F0" style_text_font="#font_small" style_text_letter_space="3" hidden="true">
+            <bind_flag_if cond="active_panel eq 3" flag="hidden" invert="true"/>
+          </lv_label>
+          <lv_label text="SETTINGS" flex_grow="1" style_text_align="right" style_text_color="0xB9D4F0" style_text_font="#font_small" style_text_letter_space="3" hidden="true">
+            <bind_flag_if cond="active_panel eq 4" flag="hidden" invert="true"/>
+          </lv_label>
+          <lv_label text="ADVANCED" flex_grow="1" style_text_align="right" style_text_color="0xB9D4F0" style_text_font="#font_small" style_text_letter_space="3" hidden="true">
+            <bind_flag_if cond="active_panel eq 5" flag="hidden" invert="true"/>
+          </lv_label>
+        </lv_obj>
+      </lv_obj>
       <bed_drying_banner name="bed_drying_banner"/>
       <!-- Panel container (grows to fill remaining space) -->
       <!-- All panels are stacked here, navigation controls visibility -->

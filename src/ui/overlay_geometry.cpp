@@ -8,6 +8,7 @@
 #include "ui_breakpoint.h"
 
 #include "content_width_cap.h"
+#include "display_settings_manager.h"
 #include "helix-xml/src/xml/lv_xml_style.h"
 #include "layout_manager.h"
 #include "lvgl/lvgl.h"
@@ -113,6 +114,16 @@ void ui_set_overlay_geometry(lv_obj_t* obj, bool is_destination) {
     const int32_t screen_height = screen ? lv_obj_get_height(screen) : 480;
     const bool portrait =
         helix::is_portrait_layout(helix::detect_layout_type(screen_width, screen_height));
+
+    // LCARS System: overlays sit flush against the LCARS sidebar, whose width
+    // the skin fixes (navigation_bar.xml lcars24_bar / lcars25_bar).
+    if (!portrait) {
+        const int lcars = helix::DisplaySettingsManager::instance().get_lcars_system();
+        if (lcars > 0) {
+            lv_obj_set_width(obj, screen_width - (lcars == 1 ? 92 : 64));
+            return;
+        }
+    }
 
     const char* name = is_destination ? "overlay_width_destination" : "overlay_width_transient";
     const char* width_str = lv_xml_get_const(nullptr, name);

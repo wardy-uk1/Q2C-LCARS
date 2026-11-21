@@ -60,11 +60,20 @@
       <bind_state_if_not_eq subject="nav_buttons_enabled" state="disabled" ref_value="1"/>
       <!-- Ultrawide: one row of columns (components/print_status_ultrawide_body.xml)
            in place of the tiles above a strip, which a screen this short stretches. -->
-      <if cond="ui_is_ultrawide eq 1">
-        <print_status_ultrawide_body name="print_status_body"/>
-        <else/>
-        <print_status_body name="print_status_body"/>
-      </if>
+      <!-- LCARS System: the stock body stays built (its widgets are looked up by name)
+           but is hidden under the LCARS body while the skin is on. -->
+      <lv_obj name="ps_stock_wrap" width="100%" height="100%" style_bg_opa="0" style_border_width="0" style_pad_all="0"
+              scrollable="false">
+        <bind_flag_if cond="settings_lcars_system gt 0" flag="hidden"/>
+        <if cond="ui_is_ultrawide eq 1">
+          <print_status_ultrawide_body name="print_status_body"/>
+          <else/>
+          <print_status_body name="print_status_body"/>
+        </if>
+      </lv_obj>
+      <lcars_print_status name="lcars_print_status" hidden="true">
+        <bind_flag_if cond="settings_lcars_system gt 0" flag="hidden" invert="true"/>
+      </lcars_print_status>
     </lv_obj>
   </view>
 </component>

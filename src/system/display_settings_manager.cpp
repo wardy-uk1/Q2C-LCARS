@@ -246,6 +246,8 @@ static constexpr settings::PersistedSetting kDisplaySettings[] = {
     {"settings_temp_unit", "/display/temp_unit", Scope::Global, false, 0, 0, 1, "temp_unit"},
     // 0=DMY, 1=MDY, 2=YMD; while unsaved the subject holds the language's order
     {"settings_date_format", "/display/date_format", Scope::Global, false, 1, 0, 2, "date_format"},
+    // 0=Off, 1=24th Century, 2=25th Century (LCARS skin)
+    {"settings_lcars_system", "/display/lcars_system", Scope::Global, false, 0, 0, 2, nullptr},
 };
 
 DisplaySettingsManager& DisplaySettingsManager::instance() {
